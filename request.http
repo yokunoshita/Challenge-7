@@ -1,0 +1,17 @@
+POST http://localhost:3000/challenge/register
+Content-Type: application/json
+
+{
+    "name": "Yoku",
+    "email": "yokuuyaa@gmail.com",
+    "password": "thisispw"
+}
+
+### login
+POST http://localhost:3000/challenge/login
+Content-Type: application/json
+
+{
+    "email": "yokuuyaa@gmail.com",
+    "password": "thisispw"
+}

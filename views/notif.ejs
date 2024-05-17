@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Your Activity</title>
+
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Poppins", sans-serif;
+                background-color: #f8fafc;
+                color: #0f172a;
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                background-color: #636670;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            li {
+                margin-bottom: 20px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            b {
+                color: #1d4ed8;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Notifications</h1>
+        </header>
+        <main>
+            <ul id="notification-list">
+            <% notifications.forEach(notification => { %>
+                <li >
+                    <b><%= notification.title %></b>
+                    <p><%= notification.body %></p>
+                </li>
+            <% }) %>
+            </ul>
+        </main>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        const socket = io();
+        const notifications = document.getElementById("notification-list");
+        const Uid = `<%= user_id %>`;
+        socket.on(`user-${Uid}`, (notification) => {
+            const item = document.createElement("li");
+            item.innerHTML = `
+                <b>${notification.title}</b>
+                <p>${notification.body}</p>
+            `;
+        });
+        </script>
+    </body>
+</html>
